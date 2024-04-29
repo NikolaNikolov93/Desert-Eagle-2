@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
-import Background from "./Game/background/background";
+import Hero from "./Game/hero/Hero";
+import Background from "./Game/background/Background";
 
 /**
  * Initialize application
@@ -18,10 +19,12 @@ if (appCanvas) {
  */
 let background = new Background({ app });
 background.loadAssets();
-
+let hero = new Hero({ app });
+hero.loadAssets();
 /**
  * Game Loop
  */
 app.ticker.add(() => {
   background.update();
+  hero.update();
 });
