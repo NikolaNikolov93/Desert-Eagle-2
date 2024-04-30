@@ -5,6 +5,7 @@ PIXI.Assets.add({ alias: "hero3", src: "static/hero/planeRed3.png" });
 
 interface App {
   stage: PIXI.Container;
+  canvas: any;
 }
 
 export default class Hero {
@@ -35,17 +36,30 @@ export default class Hero {
   move(direction: string) {
     switch (direction) {
       case "ArrowUp":
-        this.hero.y -= 3;
+        if (this.hero.y >= 0) {
+          this.hero.y -= 3;
+        }
+
         break;
       case "ArrowDown":
-        this.hero.y += 3;
+        if (this.hero.y <= this.app.canvas.height - this.hero.height) {
+          this.hero.y += 3;
+        }
+
         break;
       case "ArrowLeft":
-        this.hero.x -= 3;
+        if (this.hero.x > 0) {
+          this.hero.x -= 3;
+        }
         break;
       case "ArrowRight":
-        this.hero.x += 3;
+        if (this.hero.x <= this.app.canvas.width - this.hero.width) {
+          this.hero.x += 3;
+        }
         break;
     }
+  }
+  dropBomb() {
+    console.log("bomb down");
   }
 }
