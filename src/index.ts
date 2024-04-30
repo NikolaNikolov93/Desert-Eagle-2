@@ -37,6 +37,7 @@ let keys: Keys = {};
 
 document.addEventListener("keydown", keyDown);
 document.addEventListener("keyup", keyUp);
+document.addEventListener("keypress", hero.dropBomb);
 
 function keyDown(e: any) {
   keys[e.code] = true;
