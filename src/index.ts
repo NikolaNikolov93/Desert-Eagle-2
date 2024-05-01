@@ -1,12 +1,14 @@
 import * as PIXI from "pixi.js";
-import Hero from "./Game/hero/Hero";
-import Background from "./Game/background/Background";
-
+import Background from "./Game/background/background";
+import Hero from "./Game/hero/hero";
+const APP_WIDTH: number = 1024;
+const APP_HEIGHT: number = 700;
 /**
  * Initialize application
  */
+
 const app = new PIXI.Application();
-await app.init({ width: 1024, height: 700 });
+await app.init({ width: APP_WIDTH, height: APP_HEIGHT });
 /**
  * Append application to document
  */

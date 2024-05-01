@@ -1,0 +1,14 @@
+body {
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 1em;
+}
+#app {
+  margin: 0 auto;
+}
+#start-game-screen {
+  margin: 0 auto;
+  padding: 3em;
+}
