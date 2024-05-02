@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import Background from "./Game/background/background";
 import Hero from "./Game/hero/hero";
+import HeroBomb from "./Game/heroBomb/heroBomb";
 const APP_WIDTH: number = 1024;
 const APP_HEIGHT: number = 700;
 /**
@@ -39,7 +40,7 @@ let keys: Keys = {};
 
 document.addEventListener("keydown", keyDown);
 document.addEventListener("keyup", keyUp);
-document.addEventListener("keypress", hero.dropBomb);
+document.addEventListener("keypress", dropBomb);
 
 function keyDown(e: any) {
   keys[e.code] = true;
@@ -47,6 +48,15 @@ function keyDown(e: any) {
 
 function keyUp(e: any) {
   keys[e.code] = false;
+}
+
+function dropBomb() {
+  const heroBomb = new HeroBomb({ app }, hero);
+
+  heroBomb.loadBomb();
+  app.ticker.add(() => {
+    heroBomb.update();
+  });
 }
 
 /**

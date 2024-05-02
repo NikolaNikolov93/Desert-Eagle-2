@@ -18,6 +18,14 @@ export default class Hero {
     this.assets = [];
     this.hero;
   }
+  getBounds() {
+    return {
+      x: this.hero.x,
+      y: this.hero.y,
+      height: this.hero.height,
+      width: this.hero.width,
+    };
+  }
   async loadAssets() {
     await PIXI.Assets.load(["hero1", "hero3", "hero3"]).then((graphics) => {
       for (const key in graphics) {
@@ -58,8 +66,5 @@ export default class Hero {
         }
         break;
     }
-  }
-  dropBomb() {
-    console.log("bomb down");
   }
 }
