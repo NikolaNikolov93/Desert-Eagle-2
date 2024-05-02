@@ -38,10 +38,17 @@ interface Keys {
 
 let keys: Keys = {};
 
+/**
+ * Event listeners for hero movement
+ */
 document.addEventListener("keydown", keyDown);
 document.addEventListener("keyup", keyUp);
+/**
+ * Event listenr for hero dropping bomb
+ */
 document.addEventListener("keypress", dropBomb);
 
+//Hero movement handlers
 function keyDown(e: any) {
   keys[e.code] = true;
 }
@@ -49,7 +56,9 @@ function keyDown(e: any) {
 function keyUp(e: any) {
   keys[e.code] = false;
 }
-
+/**
+ * On hero drop bomb --> Creates bomb and adds ticker to update bomb position
+ */
 function dropBomb() {
   const heroBomb = new HeroBomb({ app }, hero);
 

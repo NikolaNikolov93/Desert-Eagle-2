@@ -10,6 +10,9 @@ export default class Background {
     this.app = app;
     this.assets = [];
   }
+  /**
+   * Loads the background images
+   */
   async loadAssets() {
     await PIXI.Assets.load("static/background/bg.png");
     const texture = PIXI.Texture.from("static/background/bg.png");
@@ -22,6 +25,9 @@ export default class Background {
       this.app.stage.addChild(bg);
     }
   }
+  /**
+   * Loops thru the assets array and crates an infinate animation to imitate background movements
+   */
   update() {
     this.assets.forEach((asset) => {
       asset.x -= 3;

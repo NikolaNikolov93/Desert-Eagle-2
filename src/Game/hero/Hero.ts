@@ -18,6 +18,10 @@ export default class Hero {
     this.assets = [];
     this.hero;
   }
+  /**
+   *
+   * @returns the hero position and size
+   */
   getBounds() {
     return {
       x: this.hero.x,
@@ -26,6 +30,9 @@ export default class Hero {
       width: this.hero.width,
     };
   }
+  /**
+   * Loads the hero images and loops thru them to create animation effect of propellers spinning
+   */
   async loadAssets() {
     await PIXI.Assets.load(["hero1", "hero3", "hero3"]).then((graphics) => {
       for (const key in graphics) {
@@ -41,6 +48,11 @@ export default class Hero {
     this.hero = animatedPlane;
     this.app.stage.addChild(animatedPlane);
   }
+  /**
+   *
+   * @param direction string
+   * Moves the plane in specific direction and checks if hero goes out of screen to stop movement
+   */
   move(direction: string) {
     switch (direction) {
       case "ArrowUp":

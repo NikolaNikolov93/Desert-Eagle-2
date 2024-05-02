@@ -16,6 +16,9 @@ export default class HeroBomb {
     this.bomb = PIXI.Sprite;
   }
 
+  /**
+   * Loads the bomb texture and adds it to the stage
+   */
   async loadBomb() {
     await PIXI.Assets.load("static/ammo/planeBomb.png");
     const texture = PIXI.Texture.from("static/ammo/planeBomb.png");
@@ -29,6 +32,9 @@ export default class HeroBomb {
 
     this.app.stage.addChild(bomb);
   }
+  /**
+   * Updates the bomb position and checks if its out of screen,removes it from the stage
+   */
   update() {
     if (this.bomb.y > this.app.canvas.height) {
       this.app.stage.removeChild(this.bomb);
