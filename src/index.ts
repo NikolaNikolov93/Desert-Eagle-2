@@ -2,6 +2,10 @@ import * as PIXI from "pixi.js";
 import Background from "./Game/background/background";
 import Hero from "./Game/hero/hero";
 import HeroBomb from "./Game/heroBomb/heroBomb";
+import Rock from "./Game/rock/rock";
+import getRandomScale from "./helpers/getRandomScale.ts";
+import getRandomSpawnTime from "./helpers/getRandomSpawnTime.ts";
+
 const APP_WIDTH: number = 1024;
 const APP_HEIGHT: number = 700;
 /**
@@ -68,10 +72,21 @@ function dropBomb() {
   });
 }
 
+function spawnObstacle(scale: number) {
+  const rock = new Rock({ app }, hero, scale);
+  rock.loadRock();
+  app.ticker.add(() => {
+    rock.update();
+  });
+}
+
+let obstacleSpawnerTimer = 0;
+let obstacleSpanwerInterval = getRandomSpawnTime(3, 10);
+
 /**
  * Game Loop
  */
-app.ticker.add(() => {
+app.ticker.add((delta) => {
   //Background animation call
   background.update();
   //Listen for her movement and updating the position
@@ -86,5 +101,17 @@ app.ticker.add(() => {
   }
   if (keys["ArrowRight"]) {
     hero.move("ArrowRight");
+  }
+
+  obstacleSpawnerTimer += delta.deltaMS / 1000;
+
+  if (obstacleSpawnerTimer >= obstacleSpanwerInterval) {
+    obstacleSpanwerInterval = getRandomSpawnTime(3, 10);
+    console.log(obstacleSpanwerInterval);
+
+    // Spawn an obstacle every 3 seconds
+    let obstacleScale = getRandomScale(1, 1.6);
+    spawnObstacle(obstacleScale);
+    obstacleSpawnerTimer = 0;
   }
 });
