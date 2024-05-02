@@ -79,8 +79,9 @@ function spawnObstacle(scale: number) {
     rock.update();
   });
 }
-
+//Set spawner timer
 let obstacleSpawnerTimer = 0;
+//Set initial spawn interval
 let obstacleSpanwerInterval = getRandomSpawnTime(3, 10);
 
 /**
@@ -102,14 +103,20 @@ app.ticker.add((delta) => {
   if (keys["ArrowRight"]) {
     hero.move("ArrowRight");
   }
-
+  /**
+   * App ticker recieves a callback function with delta parameter
+   * it represents the time since last tick(frame) in miliseconds
+   * We imcrement the timer with the delta time on each frame to keep track of time
+   * If the obstacleSpawner exceeds the obstacleInterval(random number between 3 and 10) it we spawn
+   * new obstacle
+   */
   obstacleSpawnerTimer += delta.deltaMS / 1000;
 
   if (obstacleSpawnerTimer >= obstacleSpanwerInterval) {
+    //Set new spanw interval to create randomness when spawning obstacles
     obstacleSpanwerInterval = getRandomSpawnTime(3, 10);
-    console.log(obstacleSpanwerInterval);
 
-    // Spawn an obstacle every 3 seconds
+    // Spawn an obstacle with random scale and reset timer
     let obstacleScale = getRandomScale(1, 1.6);
     spawnObstacle(obstacleScale);
     obstacleSpawnerTimer = 0;
