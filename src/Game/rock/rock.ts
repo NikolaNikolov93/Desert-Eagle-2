@@ -35,4 +35,14 @@ export default class Rock {
     }
     this.rock.x -= 2;
   }
+  checkForCollision() {
+    if (
+      this.hero.getBounds().x + this.hero.getBounds().width >= this.rock.x &&
+      this.hero.getBounds().x <= this.rock.x + this.rock.width &&
+      this.hero.getBounds().y + this.hero.getBounds().height >= this.rock.y &&
+      this.hero.getBounds().y <= this.rock.y + this.rock.width
+    ) {
+      console.log("hit");
+    }
+  }
 }

@@ -77,6 +77,7 @@ function spawnObstacle(scale: number) {
   rock.loadRock();
   app.ticker.add(() => {
     rock.update();
+    rock.checkForCollision();
   });
 }
 //Set spawner timer
