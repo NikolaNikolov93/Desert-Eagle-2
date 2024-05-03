@@ -17,6 +17,10 @@ export default class Rock {
     this.rock = PIXI.Sprite;
     this.scale = scale;
   }
+
+  /**
+   * Loads the graphics for the rock
+   */
   async loadRock() {
     await PIXI.Assets.load("static/terrain/rockDown.png");
     const texture = PIXI.Texture.from("static/terrain/rockDown.png");
@@ -29,20 +33,27 @@ export default class Rock {
     this.rock = rock;
     this.app.stage.addChild(rock);
   }
+  /**
+   * Updates the position of the rock to simulate movement
+   */
   update() {
     if (this.rock.x <= -this.rock.width) {
       this.app.stage.removeChild(this.rock);
     }
     this.rock.x -= 2;
   }
+
+  /**
+   * Checks for collision between the rock and the hero
+   */
   checkForCollision() {
     if (
       this.hero.getBounds().x + this.hero.getBounds().width >= this.rock.x &&
-      this.hero.getBounds().x <= this.rock.x + this.rock.width &&
+      this.hero.getBounds().x <= this.rock.x + this.rock.width / 2 &&
       this.hero.getBounds().y + this.hero.getBounds().height >= this.rock.y &&
-      this.hero.getBounds().y <= this.rock.y + this.rock.width
+      this.hero.getBounds().y <= this.rock.y + this.rock.height
     ) {
-      console.log("hit");
+      // this.app.stage.removeChild(this.hero.kill());
     }
   }
 }

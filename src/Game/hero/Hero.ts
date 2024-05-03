@@ -48,6 +48,9 @@ export default class Hero {
     this.hero = animatedPlane;
     this.app.stage.addChild(animatedPlane);
   }
+  // kill() {
+  //   this.app.stage.removeChild(this.hero);
+  // }
   /**
    *
    * @param direction string

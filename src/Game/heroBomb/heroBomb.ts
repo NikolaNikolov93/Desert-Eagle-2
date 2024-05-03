@@ -39,7 +39,7 @@ export default class HeroBomb {
     if (this.bomb.y > this.app.canvas.height) {
       this.app.stage.removeChild(this.bomb);
     }
-    this.bomb.y += 2;
+    this.bomb.y += 4;
     this.bomb.x -= 1;
   }
 }
