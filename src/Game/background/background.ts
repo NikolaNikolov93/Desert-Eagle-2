@@ -26,7 +26,7 @@ export default class Background {
     }
   }
   /**
-   * Loops thru the assets array and crates an infinate animation to imitate background movements
+   * Loops thru the assets array and crates an infinate animation to imitate background movement
    */
   update() {
     this.assets.forEach((asset) => {

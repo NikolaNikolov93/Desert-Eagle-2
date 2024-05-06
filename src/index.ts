@@ -30,7 +30,7 @@ let background = new Background({ app });
 background.loadAssets();
 
 /**
- * Initialize distance
+ * Initialize distance by calling Distance class
  */
 localStorage.setItem("distasnce", "0");
 let distance = new Distance({ app }, background);
@@ -111,7 +111,10 @@ let obstacleSpanwerInterval = getRandomSpawnTime(3, 10);
 app.ticker.add((delta) => {
   //Background animation call
   background.update();
+
+  //Distance update
   distance.updateDistance();
+
   //Listen for her movement and updating the position
   if (keys["ArrowUp"]) {
     hero.move("ArrowUp");
@@ -132,6 +135,7 @@ app.ticker.add((delta) => {
    * If the obstacleSpawner exceeds the obstacleInterval(random number between 3 and 10) it we spawn
    * new obstacle
    */
+
   obstacleSpawnerTimer += delta.deltaMS / 1000;
 
   if (obstacleSpawnerTimer >= obstacleSpanwerInterval) {

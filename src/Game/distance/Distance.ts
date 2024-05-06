@@ -10,19 +10,23 @@ export default class Distance {
   private distanceText: PIXI.Text;
   backgorund: Background;
   distanceScore: any;
+
   constructor({ app }: { app: App }, backgrond: Background) {
     this.backgorund = backgrond;
     this.app = app;
     this.distanceText = new PIXI.Text();
     this.distanceScore = localStorage.getItem("distance");
     this.distanceText.zIndex = 3;
+
     // Position the text on the stage
     this.distanceText.position.set(10, 10); // Adjust position as needed
 
     // Add the text to the app stage
     this.app.stage.addChild(this.distanceText);
   }
-
+  /**
+   * updates the score on the screen
+   */
   updateDistance() {
     const distance = localStorage.getItem("distance");
 

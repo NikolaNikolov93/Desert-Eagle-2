@@ -5,7 +5,7 @@
 ## Start Game!
 
 _npm install_<br>
-_npm start_<br>
+_npm run dev_<br>
 
 ## Tech stack!
 
