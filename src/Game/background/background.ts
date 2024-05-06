@@ -32,6 +32,12 @@ export default class Background {
     this.assets.forEach((asset) => {
       asset.x -= 3;
       if (asset.x <= -asset.width) {
+        let distance = localStorage.getItem("distance");
+        if (distance) {
+          localStorage.setItem("distance", (parseInt(distance) + 1).toString());
+        } else {
+          localStorage.setItem("distance", "100");
+        }
         asset.x += this.assets.length * asset.width;
       }
     });

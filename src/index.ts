@@ -6,6 +6,7 @@ import Rock from "./Game/rock/rock";
 import getRandomScale from "./helpers/getRandomScale.ts";
 import getRandomSpawnTime from "./helpers/getRandomSpawnTime.ts";
 import Enemy from "./Game/enemy/enemy.ts";
+import Distance from "./Game/distance/Distance.ts";
 
 const APP_WIDTH: number = 1024;
 const APP_HEIGHT: number = 700;
@@ -28,6 +29,11 @@ if (appCanvas) {
 let background = new Background({ app });
 background.loadAssets();
 
+/**
+ * Initialize distance
+ */
+localStorage.setItem("distasnce", "0");
+let distance = new Distance({ app }, background);
 /**
  * Initialize hero by calling Hero class
  */
@@ -105,6 +111,7 @@ let obstacleSpanwerInterval = getRandomSpawnTime(3, 10);
 app.ticker.add((delta) => {
   //Background animation call
   background.update();
+  distance.updateDistance();
   //Listen for her movement and updating the position
   if (keys["ArrowUp"]) {
     hero.move("ArrowUp");
