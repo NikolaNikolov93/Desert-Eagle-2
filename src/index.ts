@@ -57,7 +57,7 @@ document.addEventListener("keyup", keyUp);
 /**
  * Event listenr for hero dropping bomb
  */
-document.addEventListener("keypress", dropBomb);
+document.addEventListener("keypress", keyPress);
 
 //Hero movement handlers
 function keyDown(e: any) {
@@ -67,6 +67,12 @@ function keyDown(e: any) {
 function keyUp(e: any) {
   keys[e.code] = false;
 }
+function keyPress(e: any) {
+  if (e.code === "Space") {
+    dropBomb();
+  }
+}
+
 /**
  * On hero drop bomb --> Creates bomb and adds ticker to update bomb position
  */
@@ -128,6 +134,7 @@ app.ticker.add((delta) => {
   if (keys["ArrowRight"]) {
     hero.move("ArrowRight");
   }
+
   /**
    * App ticker recieves a callback function with delta parameter
    * it represents the time since last tick(frame) in miliseconds
