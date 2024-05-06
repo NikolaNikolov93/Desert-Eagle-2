@@ -10,12 +10,14 @@ export default class Rock {
   private hero: Hero;
   private rock: any;
   private scale: number;
+  isLoaded: boolean;
 
   constructor({ app }: { app: App }, hero: Hero, scale: number) {
     this.app = app;
     this.hero = hero;
     this.rock = PIXI.Sprite;
     this.scale = scale;
+    this.isLoaded = false;
   }
 
   /**
@@ -31,6 +33,7 @@ export default class Rock {
     rock.scale = this.scale;
 
     this.rock = rock;
+    this.isLoaded = true;
     this.app.stage.addChild(rock);
   }
   /**
@@ -39,21 +42,27 @@ export default class Rock {
   update() {
     if (this.rock.x <= -this.rock.width) {
       this.app.stage.removeChild(this.rock);
+      console.log(this.rock.x);
+      this.rock.destroy();
+      this.isLoaded = false;
+    } else {
+      this.rock.x -= 2;
     }
-    this.rock.x -= 2;
   }
 
   /**
    * Checks for collision between the rock and the hero
    */
   checkForCollision() {
-    if (
-      this.hero.getBounds().x + this.hero.getBounds().width >= this.rock.x &&
-      this.hero.getBounds().x <= this.rock.x + this.rock.width / 2 &&
-      this.hero.getBounds().y + this.hero.getBounds().height >= this.rock.y &&
-      this.hero.getBounds().y <= this.rock.y + this.rock.height
-    ) {
-      // this.app.stage.removeChild(this.hero.kill());
+    if (this.isLoaded) {
+      if (
+        this.hero.getBounds().x + this.hero.getBounds().width >= this.rock.x &&
+        this.hero.getBounds().x <= this.rock.x + this.rock.width &&
+        this.hero.getBounds().y + this.hero.getBounds().height >= this.rock.y &&
+        this.hero.getBounds().y <= this.rock.y + this.rock.height
+      ) {
+        console.log("hit");
+      }
     }
   }
 }

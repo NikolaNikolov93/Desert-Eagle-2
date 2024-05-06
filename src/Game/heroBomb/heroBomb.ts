@@ -10,10 +10,12 @@ export default class HeroBomb {
   private app: App;
   private hero: Hero;
   private bomb: any;
+  isLoaded: boolean;
   constructor({ app }: { app: App }, hero: Hero) {
     this.app = app;
     this.hero = hero;
     this.bomb = PIXI.Sprite;
+    this.isLoaded = false;
   }
 
   /**
@@ -29,7 +31,7 @@ export default class HeroBomb {
     bomb.y = this.hero.getBounds().y + this.hero.getBounds().height / 2;
     bomb.rotation = 1.6;
     this.bomb = bomb;
-
+    this.isLoaded = true;
     this.app.stage.addChild(bomb);
   }
   /**
@@ -38,8 +40,12 @@ export default class HeroBomb {
   update() {
     if (this.bomb.y > this.app.canvas.height) {
       this.app.stage.removeChild(this.bomb);
+      this.bomb.destroy();
+
+      this.isLoaded = false;
+    } else {
+      this.bomb.y += 4;
+      this.bomb.x -= 1;
     }
-    this.bomb.y += 4;
-    this.bomb.x -= 1;
   }
 }

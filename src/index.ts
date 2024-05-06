@@ -5,6 +5,7 @@ import HeroBomb from "./Game/heroBomb/heroBomb";
 import Rock from "./Game/rock/rock";
 import getRandomScale from "./helpers/getRandomScale.ts";
 import getRandomSpawnTime from "./helpers/getRandomSpawnTime.ts";
+import Enemy from "./Game/enemy/enemy.ts";
 
 const APP_WIDTH: number = 1024;
 const APP_HEIGHT: number = 700;
@@ -68,7 +69,18 @@ function dropBomb() {
 
   heroBomb.loadBomb();
   app.ticker.add(() => {
-    heroBomb.update();
+    if (heroBomb.isLoaded) {
+      heroBomb.update();
+    }
+  });
+}
+function spawnEnemy() {
+  const enemy = new Enemy({ app });
+  enemy.loadEnemy();
+  app.ticker.add(() => {
+    if (enemy.isLoaded) {
+      enemy.update();
+    }
   });
 }
 
@@ -76,8 +88,10 @@ function spawnObstacle(scale: number) {
   const rock = new Rock({ app }, hero, scale);
   rock.loadRock();
   app.ticker.add(() => {
-    rock.update();
-    rock.checkForCollision();
+    if (rock.isLoaded) {
+      rock.update();
+      rock.checkForCollision();
+    }
   });
 }
 //Set spawner timer
@@ -120,6 +134,7 @@ app.ticker.add((delta) => {
     // Spawn an obstacle with random scale and reset timer
     let obstacleScale = getRandomScale(1, 1.6);
     spawnObstacle(obstacleScale);
+    spawnEnemy();
     obstacleSpawnerTimer = 0;
   }
 });
