@@ -42,7 +42,6 @@ export default class Rock {
   update() {
     if (this.rock.x <= -this.rock.width) {
       this.app.stage.removeChild(this.rock);
-      console.log(this.rock.x);
       this.rock.destroy();
       this.isLoaded = false;
     } else {
@@ -62,6 +61,7 @@ export default class Rock {
         this.hero.getBounds().y <= this.rock.y + this.rock.height
       ) {
         console.log("hit");
+        window.location.href = "/endGame.html";
       }
     }
   }

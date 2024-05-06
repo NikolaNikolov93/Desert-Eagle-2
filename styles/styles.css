@@ -10,21 +10,36 @@ body {
 #app {
   margin: 0 auto;
 }
-#start-game-screen {
+#start-game-screen,
+#end-game-screen {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   padding: 3em;
   gap: 30px;
+  align-items: center;
 }
-#start-game-screen h1 {
+h1,
+h2 {
   font-family: "Press Start 2P", system-ui;
 }
-#start-game-screen button {
+a {
   width: 40%;
-  align-self: center;
+  text-decoration: none;
+  color: black;
   padding: 10px;
+  border: 1px solid black;
   border-radius: 10px;
   font-family: "Play", sans-serif;
   font-size: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Box shadow */
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+a:hover {
+  background-color: lightgray;
+}
+a:active {
+  transform: scale(0.9);
+  transition: transform 0.3s ease; /* Smooth transition */
 }
