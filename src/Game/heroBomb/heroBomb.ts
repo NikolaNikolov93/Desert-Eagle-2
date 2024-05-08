@@ -38,14 +38,16 @@ export default class HeroBomb {
    * Updates the bomb position and checks if its out of screen,removes it from the stage
    */
   update() {
-    if (this.bomb.y > this.app.canvas.height) {
-      this.app.stage.removeChild(this.bomb);
-      this.bomb.destroy();
+    if (this.isLoaded) {
+      if (this.bomb.y > this.app.canvas.height) {
+        this.app.stage.removeChild(this.bomb);
+        this.bomb.destroy();
 
-      this.isLoaded = false;
-    } else {
-      this.bomb.y += 4;
-      this.bomb.x -= 1;
+        this.isLoaded = false;
+      } else {
+        this.bomb.y += 4;
+        this.bomb.x -= 1;
+      }
     }
   }
 }

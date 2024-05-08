@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+import HeroBomb from "../heroBomb/heroBomb";
 PIXI.Assets.add({ alias: "hero1", src: "static/hero/planeRed1.png" });
 PIXI.Assets.add({ alias: "hero3", src: "static/hero/planeRed3.png" });
 PIXI.Assets.add({ alias: "hero3", src: "static/hero/planeRed3.png" });
@@ -12,11 +13,13 @@ export default class Hero {
   private app: App;
   private assets: PIXI.Texture[];
   private hero: any;
+  bomb: any;
 
   constructor({ app }: { app: App }) {
     this.app = app;
     this.assets = [];
     this.hero;
+    this.bomb;
   }
   /**
    *
@@ -51,6 +54,19 @@ export default class Hero {
   // kill() {
   //   this.app.stage.removeChild(this.hero);
   // }
+
+  /**
+   * Drop bomb
+   */
+  dropBomb({ app }: any) {
+    const heroBomb = new HeroBomb({ app }, this.hero);
+    heroBomb.loadBomb();
+    app.ticker.add(() => {
+      heroBomb.update();
+    });
+    this.bomb = heroBomb;
+  }
+
   /**
    *
    * @param direction string

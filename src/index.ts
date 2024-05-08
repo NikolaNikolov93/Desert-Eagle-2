@@ -1,7 +1,6 @@
 import * as PIXI from "pixi.js";
 import Background from "./Game/background/background";
 import Hero from "./Game/hero/hero";
-import HeroBomb from "./Game/heroBomb/heroBomb";
 import Rock from "./Game/rock/rock";
 import getRandomScale from "./helpers/getRandomScale.ts";
 import getRandomSpawnTime from "./helpers/getRandomSpawnTime.ts";
@@ -69,29 +68,17 @@ function keyUp(e: any) {
 }
 function keyPress(e: any) {
   if (e.code === "Space") {
-    dropBomb();
+    hero.dropBomb({ app });
   }
 }
 
-/**
- * On hero drop bomb --> Creates bomb and adds ticker to update bomb position
- */
-function dropBomb() {
-  const heroBomb = new HeroBomb({ app }, hero);
-
-  heroBomb.loadBomb();
-  app.ticker.add(() => {
-    if (heroBomb.isLoaded) {
-      heroBomb.update();
-    }
-  });
-}
 function spawnEnemy() {
-  const enemy = new Enemy({ app });
+  const enemy = new Enemy({ app }, hero);
   enemy.loadEnemy();
   app.ticker.add(() => {
     if (enemy.isLoaded) {
       enemy.update();
+      enemy.checkForHitByHero();
     }
   });
 }

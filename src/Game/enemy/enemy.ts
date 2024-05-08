@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+import Hero from "../hero/hero";
 interface App {
   stage: PIXI.Container;
   canvas: any;
@@ -8,10 +9,12 @@ export default class Enemy {
   private app: App;
   private enemy: any;
   isLoaded: boolean;
-  constructor({ app }: { app: App }) {
+  private hero: Hero;
+  constructor({ app }: { app: App }, hero: Hero) {
     this.enemy = PIXI.Sprite;
     this.app = app;
     this.isLoaded = false;
+    this.hero = hero;
   }
 
   /**
@@ -43,6 +46,30 @@ export default class Enemy {
         this.isLoaded = false;
       } else {
         this.enemy.x -= 3;
+      }
+    }
+  }
+  checkForHitByHero() {
+    if (this.isLoaded && this.hero.bomb.isLoaded) {
+      const heroBomb = this.hero.bomb.bomb;
+      // Calculate bounds for hero's bomb
+      const heroBombBounds = heroBomb.getBounds();
+
+      // Calculate bounds for enemy
+      const enemyBounds = this.enemy.getBounds();
+
+      // Check for collision
+      if (
+        heroBombBounds.x + heroBombBounds.width > enemyBounds.x &&
+        heroBombBounds.x < enemyBounds.x + enemyBounds.width &&
+        heroBombBounds.y + heroBombBounds.height > enemyBounds.y &&
+        heroBombBounds.y < enemyBounds.y + enemyBounds.height
+      ) {
+        // remove the enemy and bomb from the stage when collsion is detected
+        this.app.stage.removeChild(this.enemy);
+        this.app.stage.removeChild(heroBomb);
+        this.enemy.destroy();
+        this.isLoaded = false;
       }
     }
   }

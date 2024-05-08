@@ -40,12 +40,14 @@ export default class Rock {
    * Updates the position of the rock to simulate movement
    */
   update() {
-    if (this.rock.x <= -this.rock.width) {
-      this.app.stage.removeChild(this.rock);
-      this.rock.destroy();
-      this.isLoaded = false;
-    } else {
-      this.rock.x -= 2;
+    if (this.isLoaded) {
+      if (this.rock.x <= -this.rock.width) {
+        this.app.stage.removeChild(this.rock);
+        this.rock.destroy();
+        this.isLoaded = false;
+      } else {
+        this.rock.x -= 2;
+      }
     }
   }
 
@@ -60,7 +62,6 @@ export default class Rock {
         this.hero.getBounds().y + this.hero.getBounds().height >= this.rock.y &&
         this.hero.getBounds().y <= this.rock.y + this.rock.height
       ) {
-        console.log("hit");
         window.location.href = "/endGame.html";
       }
     }
